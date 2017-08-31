@@ -57,3 +57,14 @@ typings/
 # dotenv environment variables file
 .env
 
+# next
+.next
+
+# demo data
+data
+
+# editorconfig
+.editorconfig
+
+# intellij
+.idea
