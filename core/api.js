@@ -9,9 +9,15 @@ export default class InstagramAPI {
     this.accessToken = '470934347.e097439.78e94c9865134e30893011363d61a895';
   }
 
-  async getAllMediaOfUser() {
-    const res = await fetch(`${this.instagramAPI}/users/${this.userID}/media/recent/?access_token=${this.accessToken}`);
-    const json = await res.json();
-    return json;
+  async getAllMediaOfUser(maxID = '') {
+    const res = await fetch(`${this.instagramAPI}/users/${this.userID}/media/recent/?access_token=${this.accessToken}&count=4&max_id=${maxID}`);
+    const data = await res.json();
+    return data;
+  }
+
+  async getAllMediaOfTag(tagName) {
+    const res = await fetch(`${this.instagramAPI}/tags/${tagName}/media/recent?access_token=${this.accessToken}`);
+    const data = await res.json();
+    return data;
   }
 }
