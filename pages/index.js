@@ -1,40 +1,43 @@
-import React, { Component } from 'react';
-// import { bindActionCreators } from 'redux';
-import withRedux from 'next-redux-wrapper';
+/* eslint-disable camelcase */
+
+import React from 'react';
 import PropTypes from 'prop-types';
 import Layout from '../components/Layout';
-import initStore from '../store';
-import getUserMedia from '../actions/userAction';
 import Media from '../components/Media';
+import InstagramAPI from '../core/api';
 
 
-class Index extends Component {
-  // , isServer, pathname, query
-  static async getInitialProps({ store }) {
-    return store.dispatch(getUserMedia()).data.then(data => ({
-      userMedia: data,
-    }));
-  }
+const instaAPI = new InstagramAPI();
 
-  render() {
-    return (
-      <Layout>
+const Index = (props) => {
+  const { userMedia } = props;
+  const { next_max_id } = props.userMedia.pagination;
+  return (
+    <Layout>
+      <div className="col-md-9">
         <div className="row">
-          <div className="col-md-9">
-            <div className="row">
-              {this.props.userMedia.data.map(media => (
-                <div className="col-6" key={media.id}>
-                  <Media mediaSrc={media.images.standard_resolution.url} mediaText={media.caption.text} />
-                </div>
-              ),
-              )}
+          {userMedia.data.map(media => (
+            <div className="col-6" key={media.id}>
+              <Media key={media.images.id} mediaSrc={media.images.standard_resolution.url} mediaText={media.caption.text} />
             </div>
-          </div>
+          ),
+          )}
         </div>
-      </Layout>
-    );
-  }
-}
+        {next_max_id &&
+          <div className="row justify-content-center">
+            <a href={`/?next_max_id=${next_max_id}`} className="btn btn-secondary btn-sm">Next Page</a>
+          </div>
+        }
+      </div>
+    </Layout>
+  );
+};
+
+Index.getInitialProps = async function (context) { // eslint-disable-line func-names
+  const { next_max_id } = context.query;
+  const data = await instaAPI.getAllMediaOfUser(next_max_id);
+  return { userMedia: data };
+};
 
 Index.defaultProps = {
   userMedia: {},
@@ -43,12 +46,8 @@ Index.defaultProps = {
 Index.propTypes = {
   userMedia: PropTypes.shape({
     data: PropTypes.array,
+    pagination: PropTypes.object,
   }),
 };
 
-// const mapDispatchToProps = dispatch => ({
-//   getUserMedia: bindActionCreators(getUserMedia, dispatch),
-// });
-
-// export default withRedux(initStore, null, mapDispatchToProps)(Index)
-export default withRedux(initStore)(Index);
+export default Index;
