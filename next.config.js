@@ -1,4 +1,5 @@
 const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+
 const { ANALYZE } = process.env;
 
 module.exports = {
