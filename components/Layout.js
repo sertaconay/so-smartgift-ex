@@ -1,15 +1,30 @@
 import React from 'react';
-import Helmet from 'react-helmet';
+import Head from 'next/head';
 import PropTypes from 'prop-types';
+import Header from '../components/Header';
+import Sidebar from '../components/Sidebar';
+
 
 const Layout = props => (
   <div>
-    <Helmet>
+    <Head>
       <link rel="stylesheet" href="https://unpkg.com/bootstrap@4.0.0-beta/dist/css/bootstrap.css" />
-    </Helmet>
+    </Head>
+    <Header />
     <div className="container">
-      {props.children}
+      <div className="row">
+        {props.children}
+        <Sidebar />
+      </div>
     </div>
+    <footer />
+    <style jsx>
+      {`
+        footer {
+          height: 100px;
+        }
+      `}
+    </style>
   </div>
 );
 

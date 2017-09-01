@@ -6,7 +6,7 @@ const Sidebar = () => {
     const targetEl = e.target;
     const targetElTagValue = targetEl.tag.value;
     targetEl.setAttribute('action', `/tag/${targetElTagValue}`);
-    if (!targetElTagValue.length && !targetElTagValue.match(/[a-z]/g)) {
+    if (!targetElTagValue.length || !targetElTagValue.match(/[a-z]/yg)) {
       return targetEl.tag.parentElement.classList.add('is-invalid');
     }
     return targetEl.submit();
