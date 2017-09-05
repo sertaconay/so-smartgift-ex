@@ -7,6 +7,7 @@ export default class InstagramAPI {
     this.userID = '5955180865';
     this.clientID = 'e097439da7034238a474a2a1e30b404b';
     this.accessToken = '470934347.e097439.78e94c9865134e30893011363d61a895';
+    this.previousTagsAPI = 'http://localhost:7698/api/v1/search/tags';
   }
 
   async getAllMediaOfUser(maxID = '') {
@@ -17,6 +18,12 @@ export default class InstagramAPI {
 
   async getAllMediaOfTag(tagName) {
     const res = await fetch(`${this.instagramAPI}/tags/${tagName}/media/recent?access_token=${this.accessToken}`);
+    const data = await res.json();
+    return data;
+  }
+
+  async getPreviousTags() {
+    const res = await fetch(`${this.previousTagsAPI}`);
     const data = await res.json();
     return data;
   }
