@@ -12,6 +12,7 @@ const instaAPI = new InstagramAPI();
 const Index = (props) => {
   const { userMedia } = props;
   const { next_max_id } = props.userMedia.pagination;
+
   return (
     <Layout>
       <div className="col-md-9">
