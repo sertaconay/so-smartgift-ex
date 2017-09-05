@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+
 const Media = ({ mediaSrc, mediaText }) => (
   <div className="card">
     <img className="card-img-top" src={mediaSrc} alt="" />
