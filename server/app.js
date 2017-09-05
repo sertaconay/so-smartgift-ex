@@ -10,7 +10,12 @@ app
   .then(() => {
     const server = express();
 
-    server.all('/tag/:slug', (req, res) => {
+    server.post('/tag', (req, res) => {
+      console.log(req);
+      res.json(req.query);
+    });
+
+    server.get('/tag/:slug', (req, res) => {
       const actualPage = '/tag';
       const queryParams = { tag: req.params.slug };
       app.render(req, res, actualPage, queryParams);
