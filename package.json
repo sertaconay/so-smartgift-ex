@@ -5,9 +5,9 @@
   "description": "smartgift backend exercise",
   "main": "index.js",
   "scripts": {
-    "prop": "NODE_ENV=production node server/start.js",
+    "start": "NODE_ENV=production node server/app.js",
     "build": "next build",
-    "start": "node server/app.js",
+    "dev": "node server/app.js",
     "export": "next export",
     "analyze": "cross-env ANALYZE=1 next build"
   },
